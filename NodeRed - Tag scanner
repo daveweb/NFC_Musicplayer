@@ -1,0 +1,515 @@
+[
+    {
+        "id": "92e8d04.68b063",
+        "type": "tab",
+        "label": "Tag scanner",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "a8763865.f2ea9",
+        "type": "server-events",
+        "z": "92e8d04.68b063",
+        "name": "",
+        "server": "9d59b1fa.a9b7c",
+        "event_type": "tag_scanned",
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "waitForRunning": true,
+        "x": 130,
+        "y": 280,
+        "wires": [
+            [
+                "aa2ca0f1.21d2f8",
+                "cd884f6.b5803b",
+                "34e2156b.9c7ee2"
+            ]
+        ]
+    },
+    {
+        "id": "9a81bacf.1cb52",
+        "type": "change",
+        "z": "92e8d04.68b063",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "last_scanned_tag",
+                "pt": "flow",
+                "to": "payload.event.tag_id",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 810,
+        "y": 220,
+        "wires": [
+            [
+                "ff044982.ff251",
+                "d06ebc55.19f508"
+            ]
+        ]
+    },
+    {
+        "id": "d9a565d4.c0d728",
+        "type": "switch",
+        "z": "92e8d04.68b063",
+        "name": "",
+        "property": "payload.event.tag_id",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "last_scanned_tag",
+                "vt": "flow"
+            },
+            {
+                "t": "neq",
+                "v": "last_scanned_tag",
+                "vt": "flow"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 610,
+        "y": 220,
+        "wires": [
+            [],
+            [
+                "9a81bacf.1cb52"
+            ]
+        ]
+    },
+    {
+        "id": "ff044982.ff251",
+        "type": "debug",
+        "z": "92e8d04.68b063",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 1090,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "aa2ca0f1.21d2f8",
+        "type": "change",
+        "z": "92e8d04.68b063",
+        "name": "tag_scan_set_unkown_variables",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.tag_id",
+                "pt": "msg",
+                "to": "payload.event.tag_id",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload.name",
+                "pt": "msg",
+                "to": "Speellijst of album",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.url",
+                "pt": "msg",
+                "to": "spotify url",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.type",
+                "pt": "msg",
+                "to": "music",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 410,
+        "y": 280,
+        "wires": [
+            [
+                "aa078d80.27212",
+                "d9a565d4.c0d728"
+            ]
+        ]
+    },
+    {
+        "id": "457ebad3.5f61bc",
+        "type": "file",
+        "z": "92e8d04.68b063",
+        "name": "Add Tag to CSV file",
+        "filename": "/share/tag_reader/tag_registration.csv",
+        "appendNewline": true,
+        "createDir": true,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 1230,
+        "y": 360,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "194a2af3.f47975",
+        "type": "function",
+        "z": "92e8d04.68b063",
+        "name": "Trim record",
+        "func": "msg.payload = msg.payload.trim();\nreturn msg ",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 1010,
+        "y": 400,
+        "wires": [
+            [
+                "457ebad3.5f61bc",
+                "cdc87ecc.5b57d8"
+            ]
+        ]
+    },
+    {
+        "id": "aa078d80.27212",
+        "type": "function",
+        "z": "92e8d04.68b063",
+        "name": "is Registererd Tag?",
+        "func": "var arr = global.get(\"lookuptable\");\n\nvar findTag = msg.payload.tag_id.toString();\n\n\n\nvar i=0;\nvar found=0;\n\nwhile (i < arr.length){\n  var obj=arr[i];\n\n  if(obj.TagId == findTag) found=1;\n   \n  i++;\n}\nmsg.payload.registered =found;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 530,
+        "y": 400,
+        "wires": [
+            [
+                "8a14b03.fc2e85"
+            ]
+        ]
+    },
+    {
+        "id": "e0ace197.21af68",
+        "type": "file in",
+        "z": "92e8d04.68b063",
+        "name": "load CSV file",
+        "filename": "/share/tag_reader/tag_registration.csv",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "x": 550,
+        "y": 540,
+        "wires": [
+            [
+                "9899b136.67c5d8"
+            ]
+        ]
+    },
+    {
+        "id": "9899b136.67c5d8",
+        "type": "csv",
+        "z": "92e8d04.68b063",
+        "name": "",
+        "sep": ";",
+        "hdrin": true,
+        "hdrout": "none",
+        "multi": "mult",
+        "ret": "\\n",
+        "temp": "time_fired, tag_id, name, url, type",
+        "skip": "0",
+        "strings": true,
+        "include_empty_strings": false,
+        "include_null_values": false,
+        "x": 890,
+        "y": 540,
+        "wires": [
+            [
+                "a6919ebf.449da8"
+            ]
+        ]
+    },
+    {
+        "id": "a6919ebf.449da8",
+        "type": "json",
+        "z": "92e8d04.68b063",
+        "name": "",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 1050,
+        "y": 540,
+        "wires": [
+            [
+                "82a58d4f.d4123"
+            ]
+        ]
+    },
+    {
+        "id": "82a58d4f.d4123",
+        "type": "change",
+        "z": "92e8d04.68b063",
+        "name": "Broadcast LookupTable",
+        "rules": [
+            {
+                "t": "set",
+                "p": "lookuptable",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1290,
+        "y": 540,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8a14b03.fc2e85",
+        "type": "switch",
+        "z": "92e8d04.68b063",
+        "name": "No?",
+        "property": "payload.registered",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 710,
+        "y": 400,
+        "wires": [
+            [
+                "5c5642df.4b617c"
+            ]
+        ]
+    },
+    {
+        "id": "cdc87ecc.5b57d8",
+        "type": "debug",
+        "z": "92e8d04.68b063",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 1210,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "5c5642df.4b617c",
+        "type": "csv",
+        "z": "92e8d04.68b063",
+        "name": "",
+        "sep": ";",
+        "hdrin": "",
+        "hdrout": "none",
+        "multi": "one",
+        "ret": "\\n",
+        "temp": "time_fired, tag_id,name, url, type",
+        "skip": "0",
+        "strings": true,
+        "include_empty_strings": "",
+        "include_null_values": "",
+        "x": 850,
+        "y": 400,
+        "wires": [
+            [
+                "194a2af3.f47975"
+            ]
+        ]
+    },
+    {
+        "id": "b79fcafd.7f948",
+        "type": "watch",
+        "z": "92e8d04.68b063",
+        "name": "Is CSV file changed?",
+        "files": "/share/tag_reader/tag_registration.csv",
+        "recursive": "",
+        "x": 270,
+        "y": 540,
+        "wires": [
+            [
+                "e0ace197.21af68"
+            ]
+        ]
+    },
+    {
+        "id": "4cae14dd.235b1c",
+        "type": "api-call-service",
+        "z": "92e8d04.68b063",
+        "name": "",
+        "server": "9d59b1fa.a9b7c",
+        "version": 1,
+        "debugenabled": false,
+        "service_domain": "media_player",
+        "service": "play_media",
+        "entityId": "media_player.huiskamer",
+        "data": "{\"media_content_id\":\"{{payload.url}}\",\"media_content_type\":\"{{payload.type}}\"}",
+        "dataType": "json",
+        "mergecontext": "",
+        "output_location": "",
+        "output_location_type": "none",
+        "mustacheAltTags": false,
+        "x": 1350,
+        "y": 140,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d06ebc55.19f508",
+        "type": "function",
+        "z": "92e8d04.68b063",
+        "name": "Get media information",
+        "func": "var arr = global.get(\"lookuptable\");\n\nvar findTag = msg.payload.tag_id.toString();\nvar url = msg.payload.url.toString();\nvar mediatype = msg.payload.type.toString();\n\n\nvar i=0;\n\n\nwhile (i < arr.length){\n  var obj=arr[i];\n\n  if(obj.TagId == findTag) {\n      url=obj.URL;\n      mediatype=obj.ContentType;\n  }\n   \n  i++;\n}\nmsg.payload.url = url;\nmsg.payload.type = mediatype;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 1060,
+        "y": 140,
+        "wires": [
+            [
+                "4cae14dd.235b1c"
+            ]
+        ]
+    },
+    {
+        "id": "cd884f6.b5803b",
+        "type": "stoptimer",
+        "z": "92e8d04.68b063",
+        "duration": "5",
+        "units": "Second",
+        "payloadtype": "num",
+        "payloadval": "0",
+        "name": "",
+        "x": 260,
+        "y": 40,
+        "wires": [
+            [
+                "1fb7e483.95cdcb"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "1fb7e483.95cdcb",
+        "type": "api-call-service",
+        "z": "92e8d04.68b063",
+        "name": "",
+        "server": "9d59b1fa.a9b7c",
+        "version": 1,
+        "debugenabled": false,
+        "service_domain": "media_player",
+        "service": "media_stop",
+        "entityId": "media_player.huiskamer",
+        "data": "",
+        "dataType": "json",
+        "mergecontext": "",
+        "output_location": "",
+        "output_location_type": "none",
+        "mustacheAltTags": false,
+        "x": 550,
+        "y": 20,
+        "wires": [
+            [
+                "7690d4eb.038d0c"
+            ]
+        ]
+    },
+    {
+        "id": "7690d4eb.038d0c",
+        "type": "change",
+        "z": "92e8d04.68b063",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "last_scanned_tag",
+                "pt": "flow",
+                "to": "",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 850,
+        "y": 20,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "34e2156b.9c7ee2",
+        "type": "debug",
+        "z": "92e8d04.68b063",
+        "name": "Scanned Tag",
+        "active": true,
+        "tosidebar": false,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload.event.tag_id",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 350,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "9d59b1fa.a9b7c",
+        "type": "server",
+        "name": "Home Assistant",
+        "legacy": false,
+        "addon": true,
+        "rejectUnauthorizedCerts": true,
+        "ha_boolean": "y|yes|true|on|home|open",
+        "connectionDelay": true,
+        "cacheJson": true
+    }
+]
