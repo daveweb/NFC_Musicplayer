@@ -1,5 +1,7 @@
 # NFC_Musicplayer
 NFC/RFID NodeMCU music player(ESPHome) (with HA-NodeRed flow)
+This musicplayer plays Spotify URL's to my SONOS speakers
+The NFC tagid's are mapped with the SONOS URL's in a csv file.
 
 Used hardware
 NFC_Musicplayer
@@ -24,6 +26,7 @@ In my case the card remains on the tag reader while playing.
 to stop playing: simply remove the card from the reader and the music will stop in 5 seconds.
 You need something to keep the card in place(eg. wooden ledge).
 
+Music is played to my SONOS
 
 - RaspberryPi 4b 
 Installed with Raspbian, docker Homeassistant, Node Red
