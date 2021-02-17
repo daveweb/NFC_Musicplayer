@@ -21,7 +21,7 @@ NOTE:
   Timestamp;TagId;Naam;URL;ContentType
 
 In my case the card remains on the tag reader while playing. 
-to stop playing: simply remove the card from the reader and the music will stop in 5 seconds
+to stop playing: simply remove the card from the reader and the music will stop in 5 seconds.
 You need something to keep the card in place(eg. wooden ledge).
 
 
