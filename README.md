@@ -11,7 +11,15 @@ NFC_Musicplayer
 
 
 for assembling see https://miliohm.com/rc522-rfid-reader-with-nodemcu/
-Use 
+Use ESPHOME_node_nfc.yaml in ESPHOME for flashing the NodeMCU
+After flashing the NodeMCU is available in HomeAssistant
+
+The NodeRed Flow handles the tag_scanned event.
+New cards are added to /usr/share/hassio/share/tag_readertag_registration.csv
+Make sure the file is already there with the following header:
+
+Timestamp;TagId;Naam;URL;ContentType
+
 
 - RaspberryPi 4b 
 Installed with Raspbian, docker Homeassistant, Node Red
