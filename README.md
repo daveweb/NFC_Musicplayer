@@ -18,15 +18,18 @@ After flashing the NodeMCU is available in HomeAssistant
 
 The NodeRed Flow handles the tag_scanned event.
 New cards are added to /usr/share/hassio/share/tag_readertag_registration.csv
+</br>
+NOTE:</br>
+  Make sure the file is already there with the following header:</br>
+  Timestamp;TagId;Naam;URL;ContentType</br></br>
+  
+  
 with the following line: 
   2021-02-16T17:32:25.864592+00:00;04-1A-B8-D2-E8-6B-81;Speellijst of album;spotify url;music
   
 You can change the line in Excel to:</br>
 2021-02-16T17:32:25.864592+00:00;04-1A-B8-D2-E8-6B-81;Fleedwood Mac - Rumours;spotify:album:1bt6q2SruMsBtcerNVtpZB;music
-</br>
-NOTE:</br>
-  Make sure the file is already there with the following header:</br>
-  Timestamp;TagId;Naam;URL;ContentType</br></br>
+
 
 In my case the card remains on the tag reader while playing. 
 to stop playing: simply remove the card from the reader and the music will stop in 5 seconds.
