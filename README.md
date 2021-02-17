@@ -1,5 +1,5 @@
 # NFC_Musicplayer
-NFC/RFID NodeMCU music player (with HA-NodeRed flow)
+NFC/RFID NodeMCU music player(ESPHome) (with HA-NodeRed flow)
 
 Used hardware
 NFC_Musicplayer
