@@ -18,6 +18,12 @@ After flashing the NodeMCU is available in HomeAssistant
 
 The NodeRed Flow handles the tag_scanned event.
 New cards are added to /usr/share/hassio/share/tag_readertag_registration.csv
+with the following line: 
+  2021-02-16T17:32:25.864592+00:00;04-1A-B8-D2-E8-6B-81;Speellijst of album;spotify url;music
+  
+You can change the line in Excel to:
+2021-02-16T17:32:25.864592+00:00;04-1A-B8-D2-E8-6B-81;Fleedwood Mac - Rumours;spotify:album:1bt6q2SruMsBtcerNVtpZB;music
+
 NOTE:
   Make sure the file is already there with the following header:
   Timestamp;TagId;Naam;URL;ContentType
