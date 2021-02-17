@@ -10,15 +10,19 @@ NFC_Musicplayer
 - Jumper cables
 
 
-for assembling see https://miliohm.com/rc522-rfid-reader-with-nodemcu/
+For assembling see https://miliohm.com/rc522-rfid-reader-with-nodemcu/
 Use ESPHOME_node_nfc.yaml in ESPHOME for flashing the NodeMCU
 After flashing the NodeMCU is available in HomeAssistant
 
 The NodeRed Flow handles the tag_scanned event.
 New cards are added to /usr/share/hassio/share/tag_readertag_registration.csv
-Make sure the file is already there with the following header:
+NOTE:
+  Make sure the file is already there with the following header:
+  Timestamp;TagId;Naam;URL;ContentType
 
-Timestamp;TagId;Naam;URL;ContentType
+In my case the card remain on the tag reader while playing. 
+to stop playing: simply remove the card from the reader and the music will stop in 5 seconds
+You need something to keep the card in place(eg. wooden ledge).
 
 
 - RaspberryPi 4b 
