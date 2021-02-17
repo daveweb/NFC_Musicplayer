@@ -2,7 +2,7 @@
 NFC/RFID NodeMCU music player (with HA-NodeRed flow)
 
 Used hardware
-Music Card Reader
+NFC_Musicplayer
 - RC552 RFID reader
   https://www.bol.com/nl/p/rfid-kit-mifare-rc522-rfid-leesmodule-met-s50-witte-kaart-sleutelhanger-voor-arduino-raspberry-pi/9200000114634680/?s2a=
 - ESP8266 | NodeMCU | WiFi | Arduino Development Board
