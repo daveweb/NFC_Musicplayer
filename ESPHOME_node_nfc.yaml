@@ -1,0 +1,36 @@
+esphome:
+  name: node_nfc
+  platform: ESP8266
+  board: nodemcuv2
+
+wifi:
+  ssid: "YOUR_SSID"
+  password: "YOUR_PASSWORD"
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Node Test Fallback Hotspot"
+    password: "NSFY"
+
+captive_portal:
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+
+ota:
+
+
+spi:
+  clk_pin: D5
+  miso_pin: D6
+  mosi_pin: D7
+
+rc522_spi: # or rc522_i2c
+  cs_pin: D4
+  update_interval: 1s
+  on_tag:
+    then:
+      - homeassistant.tag_scanned: !lambda 'return x;'
