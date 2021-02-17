@@ -1,11 +1,10 @@
 [
     {
-        "_comment": "Dave Bongaerts - 2021",
         "id": "92e8d04.68b063",
         "type": "tab",
         "label": "Tag scanner",
         "disabled": false,
-        "info": ""
+        "info": "Dave Bongaerts - 2021"
     },
     {
         "id": "a8763865.f2ea9",
@@ -55,11 +54,10 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 810,
-        "y": 220,
+        "x": 850,
+        "y": 226,
         "wires": [
             [
-                "ff044982.ff251",
                 "d06ebc55.19f508"
             ]
         ]
@@ -68,7 +66,7 @@
         "id": "d9a565d4.c0d728",
         "type": "switch",
         "z": "92e8d04.68b063",
-        "name": "",
+        "name": "Same tag?",
         "property": "payload.event.tag_id",
         "propertyType": "msg",
         "rules": [
@@ -86,7 +84,7 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 610,
+        "x": 630,
         "y": 220,
         "wires": [
             [],
@@ -101,15 +99,15 @@
         "z": "92e8d04.68b063",
         "name": "",
         "active": false,
-        "tosidebar": true,
+        "tosidebar": false,
         "console": false,
         "tostatus": true,
         "complete": "payload",
         "targetType": "msg",
         "statusVal": "payload",
         "statusType": "auto",
-        "x": 1090,
-        "y": 220,
+        "x": 1270,
+        "y": 80,
         "wires": []
     },
     {
@@ -404,7 +402,7 @@
         "type": "function",
         "z": "92e8d04.68b063",
         "name": "Get media information",
-        "func": "var arr = global.get(\"lookuptable\");\n\nvar findTag = msg.payload.tag_id.toString();\nvar url = msg.payload.url.toString();\nvar mediatype = msg.payload.type.toString();\n\n\nvar i=0;\n\n\nwhile (i < arr.length){\n  var obj=arr[i];\n\n  if(obj.TagId == findTag) {\n      url=obj.URL;\n      mediatype=obj.ContentType;\n  }\n   \n  i++;\n}\nmsg.payload.url = url;\nmsg.payload.type = mediatype;\n\nreturn msg;",
+        "func": "var arr = global.get(\"lookuptable\");\n\nvar findTag = msg.payload.tag_id.toString();\nvar name = msg.payload.url.toString();\nvar url = msg.payload.url.toString();\nvar mediatype = msg.payload.type.toString();\n\n\nvar i=0;\n\n\nwhile (i < arr.length){\n  var obj=arr[i];\n\n  if(obj.TagId == findTag) {\n      name=obj.naam;\n      url=obj.URL;\n      mediatype=obj.ContentType;\n  }\n   \n  i++;\n}\n\nmsg.payload.name = name;\nmsg.payload.url = url;\nmsg.payload.type = mediatype;\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -413,7 +411,8 @@
         "y": 140,
         "wires": [
             [
-                "4cae14dd.235b1c"
+                "4cae14dd.235b1c",
+                "ff044982.ff251"
             ]
         ]
     },
