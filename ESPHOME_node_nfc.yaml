@@ -1,3 +1,4 @@
+# Dave Bongaerts - 17 feb 2021
 esphome:
   name: node_nfc
   platform: ESP8266
