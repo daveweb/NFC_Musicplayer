@@ -10,6 +10,9 @@ NFC_Musicplayer
 - Jumper cables
 
 
+for assembling see https://miliohm.com/rc522-rfid-reader-with-nodemcu/
+Use 
+
 - RaspberryPi 4b 
 Installed with Raspbian, docker Homeassistant, Node Red
 
