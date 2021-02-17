@@ -11,7 +11,7 @@ NFC_Musicplayer
 
 
 For assembling see https://miliohm.com/rc522-rfid-reader-with-nodemcu/
-Use ESPHOME_node_nfc.yaml in ESPHOME for flashing the NodeMCU
+Use ESPHOME_node_nfc.yaml in ESPHOME for flashing the NodeMCU.
 After flashing the NodeMCU is available in HomeAssistant
 
 The NodeRed Flow handles the tag_scanned event.
