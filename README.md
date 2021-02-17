@@ -1,7 +1,7 @@
 # NFC_Musicplayer
 NFC/RFID NodeMCU music player(ESPHome) (with HA-NodeRed flow).
 This musicplayer plays Spotify URL's to my SONOS speakers.
-The NFC tagid's are mapped with the SONOS URL's in a csv file.
+The NFC tagid's are mapped with the Spotify URL's in a csv file.
 
 Used hardware
 NFC_Musicplayer
